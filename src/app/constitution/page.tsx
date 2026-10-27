@@ -9,6 +9,7 @@ import {
   ArrowRightIcon,
   SearchIcon,
 } from "@/components/ui/icons";
+import { DoshaQuiz } from "@/components/constitution/DoshaQuiz";
 
 // ─── Type Definitions ────────────────────────────────────────────────────────
 
@@ -500,11 +501,33 @@ export default function ConstitutionPage() {
           </div>
         </div>
 
+        {/* ── Interactive Dosha Discovery Quiz ─────────────────────────────── */}
+        <div id="dosha-quiz-section">
+          <DoshaQuiz
+            onSelectDoshaDossier={(d) => {
+              setActiveDosha(d);
+            }}
+          />
+        </div>
+
         {/* ── Dosha Selector Tabs ───────────────────────────────────────────── */}
-        <div>
-          <h2 className="font-serif text-xl sm:text-2xl text-[#173D32] font-semibold mb-5">
-            Explore the Three Doshas
-          </h2>
+        <div id="dossier-explorer" className="pt-2">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-5">
+            <div>
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#596157]">
+                Classical Sanskrit Treatises &middot; Brihat-Trayi
+              </div>
+              <h2 className="font-serif text-xl sm:text-2xl text-[#173D32] font-semibold">
+                Explore the Three Classical Doshas
+              </h2>
+            </div>
+            <a
+              href="#dosha-quiz-section"
+              className="text-xs font-semibold text-[#B96345] hover:underline"
+            >
+              Take Dosha Discovery Quiz &uarr;
+            </a>
+          </div>
 
           {/* Tab Bar */}
           <div

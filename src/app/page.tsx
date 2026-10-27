@@ -87,6 +87,14 @@ export default function HomePage() {
                 </Link>
 
                 <Link
+                  href="/constitution#dosha-quiz-section"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#B96345] text-white hover:bg-[#9A4F35] font-medium text-sm tracking-wide shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#B96345]"
+                >
+                  <SparklesIcon className="w-4 h-4 text-white" />
+                  <span>Take Dosha Quiz</span>
+                </Link>
+
+                <Link
                   href="/explore"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#E5D9C6]/60 text-[#173D32] hover:bg-[#E5D9C6] font-medium text-sm transition-all border border-[#E5D9C6] focus:outline-none focus:ring-2 focus:ring-[#173D32]"
                 >
@@ -348,7 +356,7 @@ export default function HomePage() {
               </h3>
 
               <p className="text-sm sm:text-base text-[#596157] leading-relaxed">
-                Many modern commercial apps mischaracterize traditional *Prakriti* as a clinical diagnostic test or genetic destiny. In AyurVeda_Setu, our 8-step questionnaire explores classical functional tendencies (*Vata*, *Pitta*, *Kapha*) strictly as an educational heuristic.
+                Many modern commercial apps mischaracterize traditional *Prakriti* as a clinical diagnostic test or genetic destiny. In AyurVeda_Setu, our interactive 12-question quiz explores classical functional tendencies (*Vata*, *Pitta*, *Kapha*) strictly as an educational heuristic.
               </p>
 
               <div className="p-4 rounded-xl bg-[#FAF0EC] border border-[#E5D9C6] text-xs text-[#9A4F35] space-y-1">
@@ -361,13 +369,20 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="pt-2">
+              <div className="pt-2 flex flex-wrap items-center gap-3">
                 <Link
-                  href="/constitution"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#173D32] text-[#F6F2E9] hover:bg-[#235244] font-medium text-sm transition-all shadow-sm"
+                  href="/constitution#dosha-quiz-section"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#B96345] text-white hover:bg-[#9A4F35] font-medium text-sm transition-all shadow-sm"
                 >
-                  <span>Begin 8-Question Assessment</span>
-                  <ArrowRightIcon className="w-4 h-4 text-[#A8B7A0]" />
+                  <SparklesIcon className="w-4 h-4 text-white" />
+                  <span>Take Dosha Discovery Quiz (12 Questions)</span>
+                  <ArrowRightIcon className="w-4 h-4 text-white/80" />
+                </Link>
+                <Link
+                  href="/constitution#dossier-explorer"
+                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-[#E5D9C6]/60 text-[#173D32] hover:bg-[#E5D9C6] font-medium text-sm transition-all border border-[#E5D9C6]"
+                >
+                  <span>Explore Archetypes</span>
                 </Link>
               </div>
             </div>
@@ -416,6 +431,18 @@ export default function HomePage() {
                     <p className="text-xs text-[#596157] mt-1 leading-relaxed">
                       Governs mucosal protection, synovial lubrication, tissue synthesis, and immune stability (*Ojas*). Qualities: heavy (*Guru*), cold (*Sheeta*).
                     </p>
+                  </div>
+
+                  {/* Discover Balance CTA */}
+                  <div className="pt-2">
+                    <Link
+                      href="/constitution#dosha-quiz-section"
+                      className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#173D32] text-white hover:bg-[#235244] text-xs font-semibold tracking-wide transition-all shadow-sm"
+                    >
+                      <SparklesIcon className="w-4 h-4 text-[#A8B7A0]" />
+                      <span>Discover Your Archetype Balance &mdash; Take the Quiz</span>
+                      <ArrowRightIcon className="w-3.5 h-3.5" />
+                    </Link>
                   </div>
                 </div>
               </div>

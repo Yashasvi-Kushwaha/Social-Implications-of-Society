@@ -92,7 +92,7 @@ Ayur_Veda_Setu unites six connected, educational modules designed to guide users
 1. **Editorial Homepage:** Sets the epistemic tone, contrasts classical holism with reductionist trial science, and highlights live case analyses.
 2. **Ayurveda Meets Modern Science (`/explore`):** Browsable comparative dossier mapping classical concepts (*Agni*, *Curcumin*, *Ashwagandha*, *Bhasmas*) against modern clinical evidence and pharmacokinetics.
 3. **Claim Investigator (`/investigate`):** A server-side validation workflow evaluating user-submitted claims against curated peer-reviewed records, with Gemma 4 synthesizing structured context.
-4. **Traditional Constitution Explorer (`/constitution`):** An 8-question self-reflection assessment presenting an educational tripartite spectrum (Vata / Pitta / Kapha) with explicit non-diagnostic disclaimers.
+4. **Traditional Constitution Explorer (`/constitution`):** A 12-question interactive Dosha Discovery Quiz presenting an educational tripartite spectrum (Vata / Pitta / Kapha) with progress tracking, tie-breaking logic for dual/tri-doshic results, and explicit non-diagnostic disclaimers. Accessible directly from the homepage hero via the **Take Dosha Quiz** button.
 5. **Learning Library (`/learn`):** Guides on how to evaluate clinical trials, identify heavy metal risks, and detect predatory marketing tactics.
 6. **Find an Expert (`/experts`):** Directory of premier statutory teaching hospitals (AIIA, ITRA, NIA) and an interactive verification guide for the National Commission for Indian System of Medicine (NCISM) registry.
 
@@ -160,7 +160,8 @@ Ayur_Veda_Setu unites six connected, educational modules designed to guide users
 | **Claim Investigator** | Evidence-grounded claim evaluation | Text input of health claim or selecting sample vetted claims | Structured verdict: Classical view, Trial evidence, Safety alert, Citations | Model bounded strictly to retrieved records; explicit "Insufficient Evidence" state | **Implemented (Milestone 4)** |
 | **Curated Knowledge Retrieval** | Fast lexical & semantic relevance search over vetted records | Triggered server-side by claim submission | Relevant curated records with PMIDs and classical texts | No live web search without verification; zero synthetic citations | **Implemented (Milestone 2)** |
 | **Ayurveda Meets Science** | Deep-dive comparative encyclopedia | Filter by botanical, mineral, or metabolic topic | Side-by-side classical treatise vs clinical trial dossiers | Explicitly distinguishes in vitro assays from human RCTs | **Implemented (Milestone 6)** |
-| **Constitution Explorer** | Educational Prakriti self-reflection | Interactive tabs exploring Vata, Pitta, and Kapha psychophysiology | Tripartite comparison, classical qualities (Gunas), governed functions | Explicit non-diagnostic disclaimer; no diet/treatment prescription | **Implemented (Milestone 5)** |
+| **Constitution Explorer & Dosha Quiz** | Educational Prakriti self-reflection | Interactive tabs + 12-question Dosha Discovery Quiz with progress bar & back navigation | Tripartite scored result (Vata/Pitta/Kapha/Dual/Tri-doshic), classical qualities (Gunas), governed functions | Explicit non-diagnostic disclaimer; no diet/treatment prescription; tie-breaker logic for dual/tri results | **Implemented (Milestone 5 + 8)** |
+| **Homepage Quiz CTA** | Immediately accessible quiz entry from landing page | "Take Dosha Quiz" terracotta button in hero + Tridosha section CTA cards | Directs user to `/constitution#dosha-quiz-section` with smooth anchor scroll | Same non-diagnostic disclaimer; purely educational heuristic framing | **Implemented (Milestone 8)** |
 | **Learning Library** | Misinformation literacy & trial reading | Search articles by category (Bhasmas, Trial Reading, Detox Myth) | Detailed educational articles with primary references | Clear separation between fact and preliminary hypothesis | **Implemented (Milestone 6)** |
 | **Find an Expert** | Official statutory accreditation guide | Browse Apex institutes, search NCISM guide | Verified hospital profiles, official registry search checklist | Only verified statutory links; zero fabricated doctor profiles | **Implemented (Milestone 6)** |
 
@@ -327,9 +328,10 @@ The platform explicitly clarifies for users that:
 ## 12. Implementation Roadmap and Execution Plan
 
 ```
-[Milestone 1] ──► [Milestone 2] ──► [Milestone 3] ──► [Milestone 4] ──► [Milestone 5] ──► [Milestone 6] ──► [Milestone 7]
-  Design & Home      Knowledge Base     Routes & UI      Gemma 4 AI       Constitution      Library & Experts   Polish & Verify
-   (COMPLETED)       (COMPLETED)        (COMPLETED)      (COMPLETED)      (COMPLETED)          (COMPLETED)        (COMPLETED)
+[M1] ──► [M2] ──► [M3] ──► [M4] ──► [M5] ──► [M6] ──► [M7] ──► [M8]
+Design   Knowledge  Routes   Gemma4  Constit  Library  Polish  Dosha Quiz
+& Home    Base      & UI     AI      Explorer  Expert   Verify  + Home CTA
+ DONE      DONE      DONE     DONE    DONE      DONE     DONE     DONE
 ```
 
 ### Milestone 1 — Design System and Editorial Homepage
@@ -367,6 +369,17 @@ The platform explicitly clarifies for users that:
 - **Deliverables:** Milestone 7 test suite (`npm run test:audit`), secret shielding verification, clean production build (10/10 routes), and submission documentation.
 - **Completion Criteria:** Flawless production build, 16/16 audit checks pass, and judge-ready presentation.
 
+### Milestone 8 — Dosha Discovery Quiz & Homepage Quiz CTAs
+- **Status: Completed**
+- **Deliverables:**
+  - `src/components/constitution/DoshaQuiz.tsx`: 12-question interactive quiz with progress bar, back navigation, tie-breaking logic for dual/tri-doshic outcomes, non-diagnostic disclaimers, and restart option.
+  - Embedded in `src/app/constitution/page.tsx` at `#dosha-quiz-section` anchor.
+  - Homepage (`src/app/page.tsx`) updated with two prominent quiz entry points:
+    1. **Hero section:** Terracotta `Take Dosha Quiz` button (alongside the main CTAs).
+    2. **Tridosha section:** Full-width `Discover Your Archetype Balance — Take the Quiz` button inside the archetype preview card, plus a primary CTA row with `Take Dosha Discovery Quiz (12 Questions)`.
+  - `scripts/test-quiz.ts`: 11/11 automated test cases for quiz scoring and tie-breaking logic (`npm run test:quiz`).
+- **Completion Criteria:** Quiz accessible from the homepage with a single click, all 11 quiz tests pass, zero lint errors.
+
 ---
 
 ## 13. Evaluation and Testing Strategy
@@ -386,6 +399,8 @@ The platform explicitly clarifies for users that:
 | **TEST-09** | Live Gemma 4 Model Call | `npm run test:api` | Verified live API call to `gemma-4-26b-a4b-it` producing grounded synthesis | **Verified Passed (`npm run test:api`)** |
 | **TEST-10** | Official Statutory Portals | Browse `/experts` directory | Direct links to NCISM, Ministry of Ayush, AIIA, NIA, and CCRAS | **Verified Passed** |
 | **TEST-11** | Full Security & Safety Audit | `npm run test:audit` | 16/16 assertions pass: citation validity, rejection triggers, boundary locks | **Verified Passed (`npm run test:audit`)** |
+| **TEST-12** | Dosha Quiz Scoring Logic | `npm run test:quiz` | 11/11 quiz tests pass: single-dominant, dual-doshic tie-breaking, tri-doshic spread | **Verified Passed (`npm run test:quiz`)** |
+| **TEST-13** | Homepage Quiz CTA Presence | Navigate to `/` | Hero button `Take Dosha Quiz` and Tridosha section CTA visible; click routes to `/constitution#dosha-quiz-section` | **Verified Passed** |
 
 ---
 
@@ -413,13 +428,13 @@ Ayur_Veda_Setu/
 │   │   ├── favicon.ico                 # Platform favicon
 │   │   ├── globals.css                 # Custom design tokens, typography, & badge utilities
 │   │   ├── layout.tsx                  # Root layout: Cinzel & Plus Jakarta Sans, Navbar, Footer
-│   │   ├── page.tsx                    # Editorial Homepage: Hero, Case #AYU-084, Epistemology
+│   │   ├── page.tsx                    # Editorial Homepage: Hero (quiz CTA), Case #AYU-084, Tridosha (quiz CTA)
 │   │   ├── explore/                    # [Implemented Milestone 6]: Ayurveda Meets Science
 │   │   │   └── page.tsx                # Curated comparative monograph browser
 │   │   ├── investigate/                # [Implemented Milestone 4]: Claim Investigator UI
 │   │   │   └── page.tsx                # Interactive claim evaluation & Gemma 4 UI
-│   │   ├── constitution/               # [Implemented Milestone 5]: Tridosha Educational Dossier
-│   │   │   └── page.tsx                # Vata, Pitta, Kapha psychophysiology explorer
+│   │   ├── constitution/               # [Implemented Milestones 5+8]: Tridosha Educational Dossier
+│   │   │   └── page.tsx                # Vata/Pitta/Kapha explorer + embedded Dosha Discovery Quiz
 │   │   ├── learn/                      # [Implemented Milestone 6]: Misinformation Library
 │   │   │   └── page.tsx                # Searchable health literacy articles & reader
 │   │   ├── experts/                    # [Implemented Milestone 6]: Statutory Institutes Directory
@@ -428,6 +443,8 @@ Ayur_Veda_Setu/
 │   │       └── investigate/            # [Implemented Milestone 4]: Server-side Gemma 4 API Route
 │   │           └── route.ts            # Bounded retrieval, Gemma 4 call & error handling
 │   ├── components/
+│   │   ├── constitution/               # [Implemented Milestone 8]: Dosha Quiz Component
+│   │   │   └── DoshaQuiz.tsx           # 12-question quiz, progress bar, scoring, dual/tri-doshic results
 │   │   ├── layout/
 │   │   │   ├── Navbar.tsx              # Responsive navigation with active route highlights
 │   │   │   └── Footer.tsx              # Statutory medical disclaimers & official links
@@ -446,6 +463,7 @@ Ayur_Veda_Setu/
 └── scripts/
     ├── test-retrieval.ts               # [Implemented Milestone 2]: Epistemic retrieval test harness
     ├── test-live-api.ts                # [Implemented Milestone 4]: Live Gemma 4 end-to-end test
+    ├── test-quiz.ts                    # [Implemented Milestone 8]: Dosha Quiz scoring & tie-breaking tests
     └── verify-milestone7.ts            # [Implemented Milestone 7]: Full security & audit test suite
 ```
 
@@ -496,6 +514,9 @@ Ayur_Veda_Setu/
    # Execute the evidence retrieval test suite
    npm run test:retrieval
 
+   # Execute the Dosha Discovery Quiz scoring test suite (11/11 tests)
+   npm run test:quiz
+
    # Execute the live Gemma 4 API integration test
    npm run test:api
 
@@ -524,8 +545,8 @@ Ayur_Veda_Setu/
 ## 17. Project Status, Contribution and Disclaimer
 
 ### Current Project Status
-- **Current Milestone:** **Milestones 1–7 Complete** (All core modules, design system, curated retrieval, Gemma 4 bounded AI integration, Constitution Explorer, Learning Library, Expert Directory, and comprehensive security audit fully implemented and verified).
-- **Project Readiness:** **Judge-Ready & Submission-Verified** (10/10 Next.js routes prerendered, 0 build errors, 0 lint warnings, 16/16 test assertions passing).
+- **Current Milestone:** **Milestones 1–8 Complete** (All core modules, design system, curated retrieval, Gemma 4 bounded AI integration, Constitution Explorer with 12-question interactive Dosha Discovery Quiz, homepage quiz CTAs, Learning Library, Expert Directory, and comprehensive security audit fully implemented and verified).
+- **Project Readiness:** **Judge-Ready & Submission-Verified** (10/10 Next.js routes prerendered, 0 build errors, 0 lint warnings, 16/16 audit assertions + 11/11 quiz assertions passing).
 
 ### Contribution Guidelines
 Contributions that enhance scientific accuracy, cite genuine peer-reviewed literature, or improve accessibility are welcome. All proposed evidence records must supply verifiable PubMed PMIDs, official trial registration numbers, or verifiable classical Sanskrit citations. Synthetic or ungrounded contributions will be rejected.
