@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:retrieval": "npx tsx scripts/test-retrieval.ts",
+    "test:api": "npx tsx scripts/test-live-api.ts",
+    "test:audit": "npx tsx scripts/verify-milestone7.ts"
   },
   "dependencies": {
     "@google/genai": "^2.31.0",

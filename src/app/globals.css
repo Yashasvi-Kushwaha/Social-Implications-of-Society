@@ -1,26 +1,132 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ivory: #F6F2E9;
+  --ivory-light: #FCFAF6;
+  --forest: #173D32;
+  --forest-dark: #0F2A22;
+  --forest-light: #235244;
+  --sage: #A8B7A0;
+  --sage-light: #E8ECE6;
+  --sage-muted: #8E9E86;
+  --terracotta: #B96345;
+  --terracotta-dark: #9A4F35;
+  --terracotta-light: #FAF0EC;
+  --charcoal: #242923;
+  --charcoal-muted: #596157;
+  --sand: #E5D9C6;
+  --sand-light: #F2ECE0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --color-ivory: var(--ivory);
+  --color-ivory-light: var(--ivory-light);
+  --color-forest: var(--forest);
+  --color-forest-dark: var(--forest-dark);
+  --color-forest-light: var(--forest-light);
+  --color-sage: var(--sage);
+  --color-sage-light: var(--sage-light);
+  --color-sage-muted: var(--sage-muted);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-dark: var(--terracotta-dark);
+  --color-terracotta-light: var(--terracotta-light);
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-muted: var(--charcoal-muted);
+  --color-sand: var(--sand);
+  --color-sand-light: var(--sand-light);
+  --font-serif: var(--font-cinzel), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  background-color: var(--ivory);
+  color: var(--charcoal);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--ivory);
+  color: var(--charcoal);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, .font-editorial {
+  font-family: var(--font-serif);
+  letter-spacing: -0.01em;
+}
+
+/* Custom subtle textures and borders */
+.border-sand {
+  border-color: var(--sand);
+}
+
+.bg-ivory {
+  background-color: var(--ivory);
+}
+
+.bg-ivory-light {
+  background-color: var(--ivory-light);
+}
+
+.bg-forest {
+  background-color: var(--forest);
+}
+
+.text-forest {
+  color: var(--forest);
+}
+
+.text-terracotta {
+  color: var(--terracotta);
+}
+
+.bg-terracotta {
+  background-color: var(--terracotta);
+}
+
+.bg-sage-light {
+  background-color: var(--sage-light);
+}
+
+/* Editorial badge utilities */
+.badge-evidence-strong {
+  background-color: #E8F5E9;
+  color: #1E4620;
+  border: 1px solid #C8E6C9;
+}
+
+.badge-evidence-moderate {
+  background-color: #EBF3F5;
+  color: #164E63;
+  border: 1px solid #CFE2E8;
+}
+
+.badge-evidence-caution {
+  background-color: #FFF3E0;
+  color: #B45309;
+  border: 1px solid #FFE0B2;
+}
+
+.badge-evidence-debunked {
+  background-color: #FEE2E2;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+}
+
+/* Subtle botanical grid line */
+.archive-border {
+  border: 1px solid var(--sand);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
