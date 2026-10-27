@@ -3,6 +3,7 @@ import { Cinzel, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { QuizPortal } from "@/components/constitution/QuizPortal";
 
 const cinzel = Cinzel({
   variable: "--font-cinzel",
@@ -52,6 +53,7 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <QuizPortal />
       </body>
     </html>
   );
